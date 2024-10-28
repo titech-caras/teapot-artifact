@@ -1,0 +1,9 @@
+[submodule "NaHCO3"]
+	path = NaHCO3
+	url = https://github.com/lin-toto/NaHCO3
+[submodule "teapot-testcases"]
+	path = teapot-testcases
+	url = https://github.com/lin-toto/teapot-testcases
+[submodule "SpecFuzz"]
+	path = SpecFuzz
+	url = https://github.com/lin-toto/SpecFuzz-test
