@@ -5,7 +5,7 @@ if [[ $# -ne 1 ]]; then
     exit
 fi
 
-if [[ -x "$(which teapot)" ]]; then
+if [[ ! -x "$(which teapot)" ]]; then
     echo "Cannot find teapot executable! Might have been executed in the wrong container" 1>&2
     exit
 fi
@@ -16,10 +16,12 @@ WORKDIR=$(mktemp -d)
 
 ddisasm --ir "$WORKDIR/$BINARY_NAME.gtirb" "binaries/original/$BINARY_NAME"
 teapot "$WORKDIR/$BINARY_NAME.gtirb" "$WORKDIR/$BINARY_NAME.inst.gtirb"
-gtirb-pprinter --ir "$WORKDIR/$BINARY_NAME.inst.gtirb" "$WORKDIR/$BINARY_NAME.inst.S"
+gtirb-pprinter --ir "$WORKDIR/$BINARY_NAME.inst.gtirb" --asm "$WORKDIR/$BINARY_NAME.inst.S"
 sed -i -f /teapot-scripts/fix_asm.sed "$WORKDIR/$BINARY_NAME.inst.S" 
 
-gcc -o "binaries/teapot/$BINARY_NAME"  "$WORKDIR/$BINARY_NAME.inst.S" -no-pie -nostartfiles -lcheckpoint_x64 -lhfuzz -lasan
-gcc -o "binaries/teapot_nonest/$BINARY_NAME"  "$WORKDIR/$BINARY_NAME.inst.S" -no-pie -nostartfiles -lcheckpoint_x64_nonest -lhfuzz -lasan
+LINKER_ARGS="-lhfuzz -lasan -lm -lz"
+
+gcc -o "binaries/teapot/$BINARY_NAME"  "$WORKDIR/$BINARY_NAME.inst.S" -no-pie -nostartfiles -lcheckpoint_x64 $LINKER_ARGS
+gcc -o "binaries/teapot_nonest/$BINARY_NAME"  "$WORKDIR/$BINARY_NAME.inst.S" -no-pie -nostartfiles -lcheckpoint_x64_nonest $LINKER_ARGS
 
 rm -rf "$WORKDIR"
