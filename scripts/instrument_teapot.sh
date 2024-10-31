@@ -10,7 +10,7 @@ if [[ ! -x "$(which teapot)" ]]; then
     exit
 fi
 
-cd "$(dirname \"$0\")"
+cd "$(dirname $0)"/../
 BINARY_NAME=$1
 WORKDIR=$(mktemp -d)
 
