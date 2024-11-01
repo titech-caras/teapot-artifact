@@ -19,9 +19,9 @@ teapot "$WORKDIR/$BINARY_NAME.gtirb" "$WORKDIR/$BINARY_NAME.inst.gtirb"
 gtirb-pprinter --ir "$WORKDIR/$BINARY_NAME.inst.gtirb" --asm "$WORKDIR/$BINARY_NAME.inst.S"
 sed -i -f /teapot-scripts/fix_asm.sed "$WORKDIR/$BINARY_NAME.inst.S" 
 
-LINKER_ARGS="-lhfuzz -lasan -lm -lz"
+LINKER_ARGS="-lhfuzz -lasan -lm -lz -ldl"
 
 gcc -o "binaries/teapot/$BINARY_NAME"  "$WORKDIR/$BINARY_NAME.inst.S" -no-pie -nostartfiles -lcheckpoint_x64 $LINKER_ARGS
 gcc -o "binaries/teapot_nonest/$BINARY_NAME"  "$WORKDIR/$BINARY_NAME.inst.S" -no-pie -nostartfiles -lcheckpoint_x64_nonest $LINKER_ARGS
 
-rm -rf "$WORKDIR"
+#rm -rf "$WORKDIR"
