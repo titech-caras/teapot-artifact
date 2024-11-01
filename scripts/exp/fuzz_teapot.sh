@@ -23,4 +23,4 @@ honggfuzz $EXTRA_ARGS -l $WORKDIR/hongg.log --run_time $RUN_TIME -n $THREADS --n
     -f $WORKDIR -W $WORKDIR -Q --linux_no_ptrace -- "binaries/teapot/$BINARY_NAME" ___FILE___ 2>&1 | \
     python3 scripts/exp/fuzz_teapot_analyzer.py collect -o "results/fuzz/teapot/$BINARY_NAME.json"
 
-#rm -rf "$WORKDIR"
+rm -rf "$WORKDIR"

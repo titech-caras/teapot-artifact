@@ -23,4 +23,4 @@ honggfuzz $EXTRA_ARGS -l $WORKDIR/hongg.log --run_time $RUN_TIME -n $THREADS --n
     python3 scripts/exp/fuzz_specfuzz_analyzer.py collect -o "results/fuzz/specfuzz/$BINARY_NAME.json" \
     -r $WORKDIR/hongg.log -b "binaries/specfuzz/$BINARY_NAME"
 
-#rm -rf "$WORKDIR"
+rm -rf "$WORKDIR"
