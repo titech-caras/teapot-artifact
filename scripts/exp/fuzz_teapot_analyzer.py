@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# Based on SpecFuzz analyze script.
+
 import sys
 from pprint import pprint
 from typing import Dict, Set, List, Tuple, Optional
@@ -320,12 +323,12 @@ class Collector:
             return False
 
         # if we start a new experiment, aggregate the previous one
-        if line.startswith("[NaHCO3], Gadget Type"):
+        if line.startswith("[teapot], Gadget Type"):
             self.process_experiment()
             return True
 
-        # filter out the lines not produced by SpecFuzz
-        if not line.startswith(r'[NaHCO3],'):
+        # filter out the lines not produced by Teapot
+        if not line.startswith(r'[teapot],'):
             return True
 
         # parse the line
@@ -336,7 +339,9 @@ class Collector:
             accessed_address = int(values[3], 16)
             tag = values[4].strip()
             offset = 0
-            branches_sequence = [0] # Disabled
+
+            # Disabled. File would bloat too much and this isn't used in the paper anyway
+            branches_sequence = [0] 
             #branches_sequence = [int(x, 16) for x in values[6:-1]]
         except:
             print("Error parsing string: " + str(line))

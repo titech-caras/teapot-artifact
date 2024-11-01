@@ -1,2 +1,3 @@
 binaries/*
 results/*
+!results/aggregated.xlsx
