@@ -1,4 +1,2 @@
-binaries/original/*
-binaries/specfuzz/*
-binaries/teapot/*
-binaries/teapot_nonest/*
+binaries/*
+results/*

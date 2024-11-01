@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 [BINARY_FILE]" 1>&2
+    echo "Usage: $0 [BINARY_NAME]" 1>&2
     exit
 fi
 
