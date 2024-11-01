@@ -16,7 +16,7 @@ if [[ "$BINARY_NAME" == "yaml" ]]; then
 fi
 
 WORKDIR=$(mktemp -d)
-cp "teapot-testcases/resources/seed/$APPNAME/*" $WORKDIR/
+cp "teapot-testcases/resources/seed/$BINARY_NAME/"* $WORKDIR/
 
 honggfuzz $EXTRA_ARGS -l $WORKDIR/hongg.log --run_time $RUN_TIME -n $THREADS --no_fb_timeout 1 --timeout $RUN_TIME \
     -f $WORKDIR -W $WORKDIR -Q -- "binaries/specfuzz/$BINARY_NAME" ___FILE___ 2>&1 | \

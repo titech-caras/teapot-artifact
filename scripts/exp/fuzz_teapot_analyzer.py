@@ -373,7 +373,10 @@ class Collector:
             self.write_output(current_time)
 
     def write_output(self, timestamp):
-        output = f"{self.out_file}_{int(timestamp)}.json"
+        if self.log_timer:
+            output = f"{self.out_file}_{int(timestamp)}.json"
+        else:
+            output = self.out_file
 
         # process results
         self.results.collect_statistics()
