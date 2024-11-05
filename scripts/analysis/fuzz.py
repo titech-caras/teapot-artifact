@@ -20,6 +20,9 @@ def categorize_gadget(t):
     suffix = type_name.replace('KASPER_', '')
     tag = int(tag, 16)
 
+    if tag & (~0x33) != 0:
+        return 'UNKNOWN'
+
     if type_name == 'KASPER_MDS':
         prefix = 'USER' if tag & TAG_ATTACKER else 'MASSAGE' if tag & TAG_ATTACKER_INDIRECT else 'UNKNOWN'
     else:
